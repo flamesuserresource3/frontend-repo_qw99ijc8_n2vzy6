@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import PlaylistGrid from './components/PlaylistGrid';
 import PlayerBar from './components/PlayerBar';
+import SongList from './components/SongList';
+import AddSongModal from './components/AddSongModal';
 
 export default function App() {
+  const [addOpen, setAddOpen] = useState(false);
+
   return (
     <div className="h-screen w-screen bg-gradient-to-b from-zinc-900 via-black to-black text-white overflow-hidden">
       {/* Top navigation */}
@@ -47,6 +51,15 @@ export default function App() {
 
               <PlaylistGrid />
 
+              {/* User Songs with Add button */}
+              <div className="flex items-center justify-between">
+                <h2 className="text-white text-2xl font-bold">Add your music</h2>
+                <button onClick={() => setAddOpen(true)} className="bg-emerald-500 text-black font-semibold px-4 py-2 rounded hover:bg-emerald-400">
+                  Add Song
+                </button>
+              </div>
+              <SongList />
+
               {/* Made for you */}
               <section className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -76,6 +89,8 @@ export default function App() {
 
       {/* Player */}
       <PlayerBar />
+
+      <AddSongModal open={addOpen} onClose={() => setAddOpen(false)} onAdded={() => {}} />
     </div>
   );
 }
